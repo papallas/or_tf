@@ -1,5 +1,5 @@
 This is the `or_tf` plugin for OpenRAVE. This plugin is listening to
-tf frames and update OpenRAVE Kinbodies in realtime. It can be used by
+tf frames and update OpenRAVE Kinbodies in realtime. It can be used with
 any perception system that publishes tf to the ROS's tf topic.
 
 ## Prerequisites
