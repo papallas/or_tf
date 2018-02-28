@@ -3,10 +3,11 @@
   <name>or_tf</name>
   <version>1.0.0</version>
   <description>
-    OpenRAVE plugin that connects vicon output to openrave.
+    Plugin for listening to tf messages and update OpenRAVE Kinbodies in realtime.
   </description>
-  <maintainer email="m.r.dogar@leeds.ac.uk">Dr. Mehmet Dogar</maintainer>
-  <author email="m.r.dogar@leeds.ac.uk">Dr. Mehmet Dogar</author>
+  <author email="m.r.dogar@leeds.ac.uk">Mehmet Dogar</author>
+  <maintainer email="m.r.dogar@leeds.ac.uk">Mehmet Dogar</maintainer>
+  <maintainer email="r.papallas@leeds.ac.uk">Rafael Papallas</maintainer>
   <license>GPLv3</license>
   <buildtool_depend>catkin</buildtool_depend>
   <depend>openrave_catkin</depend>

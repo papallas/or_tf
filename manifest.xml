@@ -1,9 +1,11 @@
 <package>
-  <description brief="Connects vicon output to OpenRAVE.">
-        Openrave plugin that connects vicon output to openrave.
+  <description brief="Plugin for listening to tf messages and update OpenRAVE Kinbodies in realtime.">
+        Plugin for listening to tf messages and update OpenRAVE Kinbodies in realtime.
   </description>
-  <author>Mehmet Dogar (mdogar@mit.edu)</author>
-  <license>BSD</license>
+  <author>Mehmet Dogar (m.r.dogar@leeds.ac.uk)</author>
+  <maintainer>Mehmet Dogar (m.r.dogar@leeds.ac.uk)</maintainer>
+  <maintainer>Rafael Papallas (r.papallas@leeds.ac.uk, papallas.me)</maintainer>
+  <license>GPLv3</license>
   <depend package="roscpp"/>
   <depend package="openrave"/>
   <depend package="std_msgs"/>
