@@ -1,3 +1,7 @@
+This is the `or_tf` plugin for OpenRAVE. This plugin is listening to
+tf frames and update OpenRAVE Kinbodies in realtime. It can be used by
+any perception system that publishes tf to the ROS's tf topic.
+
 ## Prerequisites
 - You need to install the (`openrave_catkin`)[https://github.com/personalrobotics/openrave_catkin] package by just cloning the repository in your `~/catkin_ws/src`.
 - Optionally you might also need (`mocap_optitrack`)[https://github.com/ros-drivers/mocap_optitrack] or anything else applicable to your own configuration. `mocap_optitrack` is the
@@ -114,4 +118,6 @@ A `testplugin.py` file is provided as an example.
 ## Contributors
 or_tf plugin was developed by the Robotics Lab in the School of Computing at
 the University of Leeds. This software is initially developed by Mehmet Dogar
-and is currently maintained by [Rafael Papallas](https://github.com/papallas).
+and is currently maintained by [Rafael Papallas](https://github.com/papallas)
+and the Robotics Lab in the School of Computing at
+the University of Leeds.
