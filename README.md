@@ -1,6 +1,8 @@
-This is the `or_tf` plugin for OpenRAVE. This plugin is listening to
+This the `or_tf` plugin for OpenRAVE. This plugin is listening to
 tf frames and update OpenRAVE Kinbodies in realtime. It can be used with
 any perception system that publishes tf to the ROS's tf topic.
+
+This is a **catkin** package, which means that you need to configure your catkin workspace. If you haven't configured your workspace yet, then please refer to (this)[http://wiki.ros.org/catkin/Tutorials/create_a_workspace] tutorial.
 
 ## Prerequisites
 - You need to install the (`openrave_catkin`)[https://github.com/personalrobotics/openrave_catkin] package by just cloning the repository in your `~/catkin_ws/src`.
