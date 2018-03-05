@@ -1,10 +1,12 @@
-This is the `or_tf` plugin for OpenRAVE. This plugin is listening to
-tf frames and update OpenRAVE Kinbodies in realtime. It can be used by
+This the `or_tf` plugin for OpenRAVE. This plugin is listening to
+tf frames and update OpenRAVE Kinbodies in realtime. It can be used with
 any perception system that publishes tf to the ROS's tf topic.
 
+This is a **catkin** package, which means that you need to configure your catkin workspace. If you haven't configured your workspace yet, then please refer to [this](http://wiki.ros.org/catkin/Tutorials/create_a_workspace) tutorial.
+
 ## Prerequisites
-- You need to install the (`openrave_catkin`)[https://github.com/personalrobotics/openrave_catkin] package by just cloning the repository in your `~/catkin_ws/src`.
-- Optionally you might also need (`mocap_optitrack`)[https://github.com/ros-drivers/mocap_optitrack] or anything else applicable to your own configuration. `mocap_optitrack` is the
+- You need to install the [`openrave_catkin`](https://github.com/personalrobotics/openrave_catkin) package by just cloning the repository in your `~/catkin_ws/src`.
+- Optionally you might also need [`mocap_optitrack`](https://github.com/ros-drivers/mocap_optitrack) or anything else applicable to your own configuration. `mocap_optitrack` is the
 one which publishes the tfs to ROS in our configuration for example, but has nothing to do with `or_tf` plugin.
 
 ## Installation
@@ -94,7 +96,7 @@ Frame: wrist_3_link published by unknown_publisher Average Delay: 8.4458 Max Del
 
 From there you can see the `goal/base_link` which is the one you need. The name `goal`
 is coming from your configuration and is subject to your setup. For example if you are
-using OptiTrack and you are using the ROS Package (`mocap_optitrack`)[http://wiki.ros.org/mocap_optitrack]
+using OptiTrack and you are using the ROS Package [`mocap_optitrack`](http://wiki.ros.org/mocap_optitrack)
 then the `goal` will be whatever you have named your frame in the `config/mocap.yaml` file:
 ```yaml
 #
