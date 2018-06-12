@@ -37,6 +37,7 @@ void OrTf::Reset(void) {
     bodies_.clear();
     offsets_.clear();
     planar_.clear();
+    fixed_z_translation_.clear();
     hands_.clear();
 }
 
@@ -45,11 +46,19 @@ void OrTf::Destroy() {
     RAVELOG_INFO("module unloaded from environment\n");
 }
 
-OpenRAVE::Transform OrTf::GetPlanarPose(const OpenRAVE::Transform & pose) {
+OpenRAVE::Transform OrTf::GetPlanarPose(const OpenRAVE::Transform & pose, const double fixed_z_translation) {
     OpenRAVE::TransformMatrix m(pose);
+
+    double z_translation = m.trans[2];
+
+    // If fixed translation is set to -1, it means that we should use the actual z value from OptiTrack, otherwise we have a fixed z value.
+    if(fixed_z_translation != -1.0){
+        z_translation = fixed_z_translation;
+    }
+
     double yaw = atan2(m.rot(1,0), m.rot(0,0));
     OpenRAVE::Vector quat(quatFromAxisAngle(OpenRAVE::Vector(0.,0.,1.), yaw)); // setting roll and pitch to zero.
-    OpenRAVE::Vector translation(m.trans[0],m.trans[1],0.0); // Setting z to zero
+    OpenRAVE::Vector translation(m.trans[0],m.trans[1], z_translation);
     OpenRAVE::Transform planar(quat, translation);
     return planar;
 }
@@ -81,7 +90,8 @@ bool OrTf::SimulationStep(OpenRAVE::dReal fTimeElapsed) {
             }
             OpenRAVE::Transform pose = GetOrTransform(transform)*offsets_[it->first];
             if (planar_[it->first]) {
-                pose = GetPlanarPose(pose);
+                double fixed_z_translation = fixed_z_translation_[it->first];
+                pose = GetPlanarPose(pose, fixed_z_translation);
             }
             {
                 OpenRAVE::EnvironmentMutex::scoped_lock lockenv(GetEnv()->GetMutex());
@@ -117,7 +127,7 @@ bool OrTf::SimulationStep(OpenRAVE::dReal fTimeElapsed) {
                 OpenRAVE::Transform new_robot_in_world = new_hand_in_world*robot_in_hand;
                 //robot->SetTransform(new_robot_in_world);
                 // Trying snapping
-                OpenRAVE::Transform snapped = GetPlanarPose(new_robot_in_world);
+                OpenRAVE::Transform snapped = GetPlanarPose(new_robot_in_world, -1.0);
                 robot->SetTransform(snapped);
             }
         }
@@ -144,7 +154,9 @@ bool OrTf::RegisterBody(std::ostream& sout, std::istream& sinput) {
         RAVELOG_ERROR("RegisterBody: Body name %s does not exist.\n",body_name.c_str());
         return false;
     }
+
     std::string cmd;
+
     sinput >> cmd;
     double x=0.,y=0.,z=0.,qw=1.,qx=0.,qy=0.,qz=0.;
     if (!sinput.fail()) {
@@ -160,6 +172,7 @@ bool OrTf::RegisterBody(std::ostream& sout, std::istream& sinput) {
             return false;
         }
     }
+
     sinput >> cmd;
     bool planar_tracking = false;
     if (!sinput.fail()) {
@@ -171,9 +184,23 @@ bool OrTf::RegisterBody(std::ostream& sout, std::istream& sinput) {
         }
     }
 
+    sinput >> cmd;
+    double fixed_translation_z = -1.0;
+
+    if (!sinput.fail()) {
+        if (cmd == "fixed_translation_z") {
+            sinput >> fixed_translation_z;
+            RAVELOG_INFO("RegisterBody will use a fixed z value: %d for %d.\n", fixed_translation_z, body_name.c_str());
+        } else {
+            RAVELOG_ERROR("RegisterBody unknown command:%s.\n",cmd.c_str());
+            return false;
+        }
+    }
+
     bodies_[body_name] = tf_frame;
     offsets_[body_name] = OpenRAVE::Transform(OpenRAVE::Vector(qw,qx,qy,qz),OpenRAVE::Vector(x,y,z));
     planar_[body_name] = planar_tracking;
+    fixed_z_translation_[body_name] = fixed_translation_z;
     return true;
 }
 
@@ -209,6 +236,7 @@ bool OrTf::UnregisterBodyHelper(std::string const &body_name) {
         bodies_.erase(body_name);
         offsets_.erase(body_name);
         planar_.erase(body_name);
+        fixed_z_translation_.erase(body_name);
         return true;
     }
     // TODO If it exists in both, this just removes from teh body list.

@@ -38,7 +38,7 @@ public:
 
     bool UnregisterBodyHelper(std::string const &body_name);
 
-    OpenRAVE::Transform GetPlanarPose(const OpenRAVE::Transform & pose);
+    OpenRAVE::Transform GetPlanarPose(const OpenRAVE::Transform & pose, const double fixed_z_translation);
 
 private:
     std::string openrave_tf_frame_;
@@ -50,6 +50,7 @@ private:
     std::map<std::string, std::string> bodies_;
     std::map<std::string, OpenRAVE::Transform> offsets_;
     std::map<std::string, bool> planar_;
+    std::map<std::string, double> fixed_z_translation_;
     std::map<std::string, std::string> hands_;
     bool paused_;
 
