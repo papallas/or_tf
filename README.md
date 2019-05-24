@@ -118,8 +118,5 @@ where `1` is the `user_id` in OptiTrack.
 A `testplugin.py` file is provided as an example.
 
 ## Contributors
-or_tf plugin was developed by the Robotics Lab in the School of Computing at
-the University of Leeds. This software is initially developed by Mehmet Dogar
-and is currently maintained by [Rafael Papallas](http://rpapallas.com)
-and the Robotics Lab in the School of Computing at
-the University of Leeds.
+or_tf plugin was developed by the [Robot Manipulation Lab](https://artificial-intelligence.leeds.ac.uk/robot-manipulation/) in the School of Computing at the University of Leeds. This software is initially developed by Dr. Mehmet Dogar
+and is currently maintained by [Rafael Papallas](http://rpapallas.com).
